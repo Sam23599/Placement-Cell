@@ -42,8 +42,8 @@ body {
     float: right;
 }
 
-.nav div.main_list ul {
-    width: 100%;
+.nav :is(div.main_list ul, div.userAuth ul) {
+    /* width: 100%; */
     height: 65px;
     display: flex;
     list-style: none;
@@ -51,23 +51,24 @@ body {
     padding: 0;
 }
 
-.nav div.main_list ul li {
+.nav :is(div.main_list ul li, div.userAuth ul li) {
     width: auto;
     height: 65px;
     padding: 0;
-    padding-right: 3rem;
+    padding-right: 2rem;
 }
 
-.nav div.main_list ul li a {
+.nav :is(div.main_list ul li a, div.userAuth li a) {
     text-decoration: none;
     color: #fff;
     line-height: 65px;
-    font-size: 2.4rem;
+    font-size: 1.6rem;
 }
 
-.nav div.main_list ul li a:hover {
+.nav :is(div.main_list ul li a:hover, div.userAuth li a:hover){
     color: #00fffc;
 }
+
 
 /* Home section */
 
@@ -85,7 +86,7 @@ body {
 }
 
 .nav {
-    padding-top: 20px;
+    /* padding-top: 20px; */
     /* padding-bottom: 20px; */
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
@@ -96,13 +97,15 @@ body {
 
 /* Media qurey section */
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 854px)  {
     .container {
         margin: 0;
+        display: flex;
+        justify-content: space-evenly;
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 854px) {
     .navTrigger {
         display: block;
     }
@@ -150,6 +153,18 @@ body {
 
     .nav div.media_button {
         display: block;
+    }
+
+    .nav .userAuth ul{
+        margin-right: 6.5rem !important;
+    }
+
+    .nav .userAuth ul li{
+        margin-left: auto;
+    }
+
+    .nav .userAuth ul li:nth-child(2){
+        margin-left: 0;
     }
 }
 
