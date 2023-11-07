@@ -4,15 +4,18 @@ const db = require('./config/mongoose');
 const app = express();
 const port = 5100;
 
-app.use(express.static('./assets'));
 
 // setup the view engine
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+// middleware for static files
+app.use(express.static('./assets'));
+
 // setup layouts uses
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
+
 
 // setup body parser middleware
 app.use(express.json());
@@ -29,20 +32,22 @@ app.use(session({
     cookie: {
         maxAge: 60000
     },
-    saveUninitialized: true, 
-    resave: true
+    saveUninitialized: false, 
+    resave: false
 }));
 
 // extract style nd script from sub pages into the layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 
-
 // flash messages
 const flash = require('connect-flash');
 const flashMiddleware = require('./config/flash_middleware');
 app.use(flash());
 app.use(flashMiddleware.setFlash);
+
+// make upload path availabe for the browser
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 // setup routes
 app.use('/', require('./routes/index'));

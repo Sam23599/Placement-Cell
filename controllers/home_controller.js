@@ -2,7 +2,8 @@
 
 module.exports.home = async function (req, res) {
 
-    console.log("hi there");
+    console.log("inside home controller");
+    
     return res.render('home', {
         title: 'PlaceMent Cell'
     });
