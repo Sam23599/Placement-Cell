@@ -12,5 +12,13 @@ signUpBtn.addEventListener("click", () => {
 	container.classList.add("right-panel-active");
 });
 
-fistForm.addEventListener("submit", (e) => e.preventDefault());
-secondForm.addEventListener("submit", (e) => e.preventDefault());
+document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userLogin = urlParams.get('userLogin');
+
+    if (userLogin === 'true') {
+        console.log('Signup successful! Performing client-side action.');
+		container.classList.remove("right-panel-active");
+    }
+});
+

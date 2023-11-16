@@ -1,45 +1,26 @@
 //Create the same instance of mongoose which is used in the MongoDB configuration inside config
 const mongoose = require("mongoose");
-//Require ValidatorJS for the Validation
-const validator = require("validator");
-
-//Require Multer Module for the File Uploading
 const multer = require("multer");
-//Require Path Module for the Directory
 const path = require("path");
-//The path where the files will be uploaded
 const AVATAR_PATH = path.join("/uploads/users/avatars");
 
 //Create the DB Schema
 const userSchema = new mongoose.Schema(
 	{
-		name: {
+		username: {
 			type: String,
 			required: true,
 			trim: true,
-			minlength: [3, "Name must be at least 3 Characters Long ❌"],
+			// minlength: [3, "Name must be at least 3 Characters Long"],
 		},
 		email: {
 			type: String,
 			required: true,
 			unique: true,
-			validate(value) {
-				//Validation using ValidatorJS
-				if (!validator.isEmail(value)) {
-					throw new Error("Email is Invalid ❌");
-				}
-			},
 		},
 		password: {
 			type: String,
 			required: true,
-			validate(value) {
-				//Predefined / Inbuilt MongoDB Validate Function
-				if (value.length < 6) {
-					const message = "Password must be at least 6 Characters Long ❌";
-					throw new Error(message);
-				}
-			},
 		},
 		avatarPath: {
 			type: String,
@@ -60,8 +41,8 @@ const fileTypeFilter = (req, file, cb) => {
 		"image/gif",
 		"image/svg",
 	];
-	const sizeError = "File is too large, Max size is 3MB ";
-	const typeError = "File Type is not Supported ";
+	const sizeError = "File too large: Max size is 3MB ";
+	const typeError = "File Type not Supported ";
 
 	if (allowedTypes.includes(file.mimetype)) {
 		if (file.size > 1024 * 1024 * 3) cb(new Error(sizeError), false);
@@ -77,8 +58,7 @@ const storage = multer.diskStorage({
 		cb(null, path.join(__dirname, "..", AVATAR_PATH));
 	},
 	filename: function (req, file, cb) {
-		const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-		cb(null, file.fieldname + "-" + uniqueSuffix);
+		cb(null, file.fieldname + "-" + Date.now());
 	},
 });
 
@@ -88,11 +68,7 @@ userSchema.statics.uploadedFile = multer({
 	fileFilter: fileTypeFilter,
 }).single("avatar");
 
-//Static Variable :: AVATAR_PATH should be available globally in the EMPLOYEE Model
 userSchema.statics.filePath = AVATAR_PATH;
 
-//Create a Model/Collection to populate the data with the same name for the schema in the DB
 const User = mongoose.model("User", userSchema);
-
-//Export the Model
 module.exports = User;

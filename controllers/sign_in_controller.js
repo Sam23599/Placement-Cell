@@ -1,4 +1,4 @@
-module.exports.signin = async function (req, res){
+module.exports.login = async function (req, res){
     
     console.log('inside signin controller');
 

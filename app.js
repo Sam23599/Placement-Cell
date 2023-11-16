@@ -4,6 +4,23 @@ const db = require('./config/mongoose');
 const app = express();
 const port = 5100;
 
+// setup session middleware
+app.use(session({
+    name: 'ECell',
+    secret: 'work',
+    cookie: {
+        maxAge: (1000 * 60 * 60)
+    },
+    saveUninitialized: false, 
+    resave: false
+}));
+
+// passport setup
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(passport.setAuthenticatedUser);
 
 // setup the view engine
 app.set('view engine', 'ejs');
@@ -16,25 +33,13 @@ app.use(express.static('./assets'));
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 
-
 // setup body parser middleware
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // setup cookie parser middleware
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
-
-// setup session middleware
-app.use(session({
-    name: 'ECell',
-    secret: 'work',
-    cookie: {
-        maxAge: 60000
-    },
-    saveUninitialized: false, 
-    resave: false
-}));
 
 // extract style nd script from sub pages into the layout
 app.set('layout extractStyles', true);

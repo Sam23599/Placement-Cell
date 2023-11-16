@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
-//schema for interview
+//schema for company and their interview, with list of students
+
 const interviewSchema = new mongoose.Schema({
+
     company: {
         type : String,
         required : true
