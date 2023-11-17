@@ -3,7 +3,7 @@
 <nav class="nav">
     <div class="container">
         <div class="logo">
-            <a href="#">Placement Cell</a>
+            <a href="/">Placement Cell</a>
         </div>
         <div id="mainListDiv" class="main_list">
             <ul class="navlinks">
@@ -15,7 +15,9 @@
         </div>
         <div class="userAuth">
             <ul>
-                <li><a href="">User Name</a></li>
+                <% if (locals.user) { %>
+                    <li><a href="/user/profile/<%= locals.user._id %>"><%= locals.user.username %></a></li>
+                <% } %>
                 <li><a href="/auth/signOut">Log Out</a></li>
             </ul>
         </div>

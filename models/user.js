@@ -10,8 +10,7 @@ const userSchema = new mongoose.Schema(
 		username: {
 			type: String,
 			required: true,
-			trim: true,
-			// minlength: [3, "Name must be at least 3 Characters Long"],
+			trim: true
 		},
 		email: {
 			type: String,
@@ -31,9 +30,8 @@ const userSchema = new mongoose.Schema(
 	}
 );
 
-//BACKEND VALIDATION :: Filter Function for Avatar Uploading
+//BACKEND VALIDATION :: Filter Function for Uploading Avatar Image & less than 3MB
 const fileTypeFilter = (req, file, cb) => {
-	//Accept the file if it is an Image & less than 3MB
 	const allowedTypes = [
 		"image/jpeg",
 		"image/png",

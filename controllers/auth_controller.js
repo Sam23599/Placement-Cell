@@ -20,7 +20,15 @@ module.exports.signUp = async function (req, res) {
 
         if (!user) {
             console.log('Creating account');
-            await User.create(req.body);
+
+            // Set the default avatar path
+            const defaultAvatarPath = '/images/Empty-avatar.jpg';
+
+            // Create a new user with the default avatar path
+            await User.create({
+                ...req.body,
+                avatarPath: defaultAvatarPath,
+            });
         }
         else {
             console.log('Account already exists with the same email. Login instead');
