@@ -1,9 +1,41 @@
+* {
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    user-select: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --background-color: #ffe9ae;
+    --header-color: #ffdba4;
+    --logo-color: #000000;
+    --accent-color: #ffffff;
+    --font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif;
+}
+
 html,
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Quicksand", sans-serif;
-    font-size: 62.5%;
-    font-size: 10px;
+    font-size: 70.5%;
+    /* font-size: 10px; */
+    scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+    overflow: hidden;
+    scroll-behavior: smooth;
 }

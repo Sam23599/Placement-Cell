@@ -1,6 +1,45 @@
 <link rel="stylesheet" href="/css/home.css">
 
 <section class="home">
+    <% if (locals.user) { %>
+<div class="homepage">
+	<!-- Banner -->
+	<div class="banner">
+		<h2>Team Career Camp 🔥</h2>
+	</div>
+	<!-- Dashboard -->
+	<div class="dashboard">
+        
+		<!-- Students Section -->
+		<div class="students">
+			<h3>Students</h3>
+			<!-- Accordion -->
+			<div class="accordion" id="students">
+				<!-- Don't use let with this loop here -->
+				<% for(student of students){ %>
+				<!-- Accordion Item -->
+				<%- include('_student-accordion.ejs'); %>
+				<!-- Accordion Item -->
+				<% } %>
+			</div>
+		</div>
+
+		<!-- Interviews Section -->
+		<div class="interviews">
+			<h3>Interviews</h3>
+			<!-- Accordion -->
+			<div class="accordion" id="interviews">
+				<!-- Don't use let with this loop here -->
+				<% for(company of companies){ %>
+				<!-- Accordion Item -->
+				<%- include('_interview-accordion.ejs'); %>
+				<!-- Accordion Item -->
+				<% } %>
+			</div>
+		</div>
+	</div>
+</div>
+<% } %>
 </section>
 
 <script src="/js/home.js"></script>

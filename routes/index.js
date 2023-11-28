@@ -5,6 +5,9 @@ const passport = require('passport');
 // dashboard
 const homeController = require("../controllers/home_controller");
 router.get('/', passport.checkAuthentication, homeController.home);
+router.get('/students/add', passport.checkAuthentication, homeController.students);
+router.get('/interviews/add', passport.checkAuthentication, homeController.interviews);
+
 
 
 // auth controllers

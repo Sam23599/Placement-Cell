@@ -44,6 +44,15 @@
     height: 65px;
     padding: 0;
     padding-right: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.nav .userAuth ul li img {
+    height: 90%;
+    margin: 5px 5px 0 0;
+    border-radius: 10px;
+    box-shadow: 2px 1px 5px 1px rgba(0, 0, 0, 0.5);
 }
 
 .nav :is(div.main_list ul li a, div.userAuth li a) {
@@ -286,7 +295,7 @@
 
 /* MEIDA QUERIES for variable screens */
 
-@media screen and (min-width: 854px)  {
+@media screen and (min-width: 910px)  {
     .container {
         margin: 0;
         display: flex;
@@ -294,7 +303,7 @@
     }
 }
 
-@media screen and (max-width: 854px) {
+@media screen and (max-width: 910px) {
     .navTrigger {
         display: block;
     }
@@ -351,6 +360,8 @@
     .nav .userAuth ul li{
         margin-left: auto;
     }
+
+
 
     .nav .userAuth ul li:nth-child(2){
         margin-left: 0;
