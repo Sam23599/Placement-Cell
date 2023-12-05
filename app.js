@@ -34,8 +34,8 @@ const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 
 // setup body parser middleware
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // setup cookie parser middleware
 const cookieParser = require('cookie-parser');

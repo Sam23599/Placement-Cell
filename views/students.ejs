@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/home.css" />
+<link rel="stylesheet" href="/css/newEntry.css" />
 
 
 <!-- If User is logged in -->
@@ -12,29 +12,28 @@
 	<div class="displayContainer">
 		<div id="addDetails">
 			<% if(locals.user.id){ %>
-				<!-- Update Profile Form -->
-				<form action="#" method="post" enctype="multipart/form-data" class="student-form">
+
+				<form action="/students/add-new-student" method="post" class="student-form">
 					<h2>ADD NEW STUDENT</h2>
 
 					<div class="form-container">
-						<div class="upload-wrapper">
-							<img src="" alt="Employee Image" />
-							<!-- <button class="btn btn-grad"></button> -->
-							<input type="file" name="avatar" class="image" placeholder="Profile Picture"
+
+						<!-- Some unknown error with enctype="multipart/form-data" and multer at backend middleware: returning empty body -->
+						<!-- <div class="upload-wrapper">
+							<img src="/images/Empty-avatar.jpg" alt="Student Image" />
+							<input type="file" name="avatar" class="image" placeholder="Student Picture"
 								accept="image/png, image/gif, image/jpeg, image/jpg, image/svg"
-								onerror="this.onerror=null; this.src=`/images/Empty-avatar.jpg`" />
-						</div>
+								onerror="this.onerror=null; this.src=`/images/male-avatar.svg`" />
+						</div> -->
 
 						<div class="info">
 							<div class="form-group">
 								<label for="name">Name</label>
-								<input type="text" class="form-control" id="name" placeholder="Enter Name" name="name"
-									minlength="3" required />
+								<input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" required />
 							</div>
 							<div class="form-group">
 								<label for="age">Age</label>
-								<input type="number" class="form-control" id="age" placeholder="Enter Age" name="age"
-									min="1" max="100" required />
+								<input type="number" class="form-control" id="age" placeholder="Enter Age" name="age" required />
 							</div>
 							<div class="form-group">
 								<label for="gender">Gender</label>
@@ -47,8 +46,7 @@
 							</div>
 							<div class="form-group">
 								<label for="college">College</label>
-								<input type="text" class="form-control" id="college" placeholder="Enter College"
-									name="college" minlength="1" required />
+								<input type="text" class="form-control" id="college" placeholder="Enter College" name="college" required />
 							</div>
 							<div class="form-group">
 								<label for="batch">Batch</label>
@@ -56,39 +54,31 @@
 									<option selected>Select One Batch</option>
 									<option value="A1">A1</option>
 									<option value="A2">A2</option>
-									<option value="A3">A3</option>
 									<option value="B1">B1</option>
 									<option value="B2">B2</option>
-									<option value="B3">B3</option>
-									<option value="C1">C1</option>
-									<option value="C2">C2</option>
-									<option value="C3">C3</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label for="status">Status</label>
-								<input type="text" class="form-control" id="status" name="status" value="Not Placed"
-									readonly disabled required />
+								<input type="text" class="form-control" id="status-display" value="Not Placed" readonly disabled />
+								<input type="hidden" id="status" name="status" value="not placed" />
 							</div>
 							<div class="form-group">
 								<label for="dsa_score">DSA Score</label>
-								<input type="number" class="form-control" id="dsa_score" placeholder="Marks Out of 30"
-									name="dsa_score" min="0" max="30" required />
+								<input type="number" class="form-control" id="dsa_score" placeholder="Marks Out of 30" name="dsa_score" min="0" max="30" required />
 							</div>
 							<div class="form-group">
 								<label for="react_score">React Score</label>
-								<input type="number" class="form-control" id="react_score" placeholder="Marks Out of 30"
-									name="react_score" min="0" max="30" required />
+								<input type="number" class="form-control" id="react_score" placeholder="Marks Out of 30" name="react_score" min="0" max="30" required />
 							</div>
 							<div class="form-group">
-								<label for="web_score">WebD Score</label>
-								<input type="number" class="form-control" id="web_score" placeholder="Marks Out of 30"
-									name="web_score" min="0" max="30" required />
+								<label for="webd_score">WebD Score</label>
+								<input type="number" class="form-control" id="webd_score" placeholder="Marks Out of 30" name="webd_score" min="0" max="30" required />
 							</div>
 						</div>
 					</div>
 
-					<button type="submit" class="btn submit-btn">
+					<button type="submit" class=" submit-btn">
 						Add Student&ensp;<i class="fa-solid fa-circle-plus"></i>
 					</button>
 					

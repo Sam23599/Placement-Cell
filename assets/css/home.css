@@ -10,244 +10,441 @@
 }
 
 
-/* Common styling for add-students/add-interviews pages */
-
-.displayContainer {
-    width: 95%;
-    height: 950%;
+.homepage {
+    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 10px;
     margin: auto;
 }
 
-.displayContainer #addDetails {
-    border: 2px solid var(--logo-color);
-    padding: 10px;
-    margin-top: 10rem;
-    margin-bottom: 3.5rem;
-    width: 80%;
-    min-width: 270px !important;
-    min-height: 420px;
+.banner {
+    margin-top: 6.5rem;
+    background-color: rgba(255, 167, 52, 0.8);
+    border-radius: 10px;
+    padding: 7px;
+    word-spacing: 0.2rem;
+}
+
+.banner h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--logo-color);
+    margin: 0;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.dashboard {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    padding: 7px;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+}
+
+@media screen and (max-width: 700px) {
+    .dashboard {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.students {
+    padding-right: 5px;
+}
+
+.interviews {
+    padding-left: 5px;
+}
+
+.students,
+.interviews {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    box-shadow: 1px 5px 5px 2px rgba(0, 0, 0, 0.5);
-    background: rgba(255, 233, 174, 0.8);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin-bottom: 1rem;
+    max-height: 70vh;
+    overflow: auto;
+    border-radius: 20px;
 }
 
-@media screen and (max-width: 850px) {
-    .displayContainer #addDetails {
-        margin-top: 10rem;
-        margin-bottom: 3.5rem;
+@media screen and (max-width: 700px) {
+
+    .students,
+    .interviews {
+        width: 100%;
+        max-height: 35vh;
     }
 }
 
-@media screen and (max-height: 555px) {
-    .displayContainer #addDetails {
-        margin-top: 150px;
-        margin-bottom: 50px;
-    }
-}
-
-
-form {
+.students form,
+.interviews form {
     width: 100%;
-    min-height: 400px;
-    background-color: rgba(255, 245, 219, 0.25);
+    background-color: rgba(255, 245, 219, 0.85);
     border-radius: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
-form h2 {
+
+.students h3,
+.interviews h3 {
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--logo-color);
-    margin: 10px 0;
-    opacity: 0.7;
+    margin: auto;
+    margin-top: 1rem;
+    opacity: 0.8;
     text-align: center;
-    margin-bottom: 30px;
-}
-
-@media screen and (max-width: 850px) {
-    form h2 {
-        margin-bottom: 1.5rem;
-    }
+    background-color: rgba(255, 167, 52, 0.8);
+    border-radius: 10px;
+    padding: 7px;
+    word-spacing: 0.2rem;
 }
 
 
-.form-container {
+/* Common Accordion stylings */
+
+.accordion {
+    margin-top: 2rem;
+    width: 100% !important;
+}
+
+.accordion .accordion-item {
+    width: 100% !important;
+    margin-bottom: 1rem;
+}
+
+.accordion .accordion-item h2 {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.accordion-item h2 button {
+    transition: all 0.15s ease-in-out !important;
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: var(--font-family);
+    color: var(--logo-color);
+    word-break: break-all;
+}
+
+.accordion-item h2 button:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+.accordion-item h2 button::after {
+    content: none;
+}
+
+.accordion-item .accordion-body {
+    width: 100% !important;
+}
+
+.accordion-item .accordion-body img {
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 150px;
+    max-height: 150px;
+    margin: auto;
+    display: block;
+    margin-bottom: 2rem;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+}
+
+
+
+/* Interview Section */
+
+.accordion-body .interview-data {
+    width: 100% !important;
+    position: relative;
+    border-bottom: 1px solid var(--logo-color);
+}
+
+.accordion-body .interview-data p {
+    padding: 0 1rem;
+    color: var(--logo-color);
+    margin: 0.5rem auto;
+    font-size: 1.2rem;
+    font-weight: 500;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    gap: 2.5rem;
 }
 
-.form-container input[type="file"],
-.form-container input[type="file"]::-webkit-file-upload-button {
-    cursor: pointer;
-    right: 0px;
-    bottom: 0px;
-    /* display: none; */
-}
-
-@media screen and (max-width: 800px) {
-    .form-container {
-        flex-direction: column;
-        gap: 3rem;
-        margin-top: 1rem;
+@media screen and (max-width: 330px) {
+    .accordion-body .interview-data p {
+        justify-content: flex-start;
     }
 }
 
-.upload-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-    min-width: 230px;
-    min-height: 230px;
-    border-radius: 10px;
-    box-shadow: 1px 5px 5px 2px rgba(0, 0, 0, 0.5);
-    z-index: 1;
-}
-
-.upload-wrapper img {
-    width: 100%;
-    height: 100%;
-    margin: 0%;
-    padding: 0%;
-    -o-object-fit: cover;
-    -o-object-position: center;
-    -mz-object-fit: cover;
-    -mz-object-position: center;
-    -webkit-object-fit: cover;
-    -webkit-object-position: center;
-    object-fit: cover;
-    object-position: center;
-    aspect-ratio: 1/1;
+.accordion-body .interview-data .fa-trash {
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
+    top: 5%;
+    right: 1%;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
 }
 
-.upload-wrapper:hover {
-    transition: 200ms filter linear;
-    filter: grayscale(1);
-}
-
-@media screen and (max-width: 500px) {
-    .upload-wrapper {
-        min-width: 170px;
-        min-height: 170px;
+@media screen and (max-width: 330px) {
+    .accordion-body .interview-data .fa-trash {
+        font-size: 1.1rem;
+        top: 15%;
     }
 }
 
-.upload-wrapper input[type="file"] {
+.accordion-body .interview-data .fa-trash:hover {
+    color: #21b416;
+}
+
+.accordion-body .students-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.accordion-body .students-list h5 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--logo-color);
+    margin: 0.5rem auto;
+    text-align: center;
+}
+
+.accordion-body .students-list+p {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--logo-color);
+    margin: 0.5rem auto;
+    text-align: center;
+}
+
+.accordion-body .students-list+p i {
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+.accordion-body .students-list+p i:hover {
+    color: #21b416;
+}
+
+.students-list form {
     width: 100%;
     height: 100%;
-    cursor: pointer;
-    font-size: 300px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background: transparent;
 }
 
-.info {
-    width: 60%;
-    height: 60%;
+.students-list form .student {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
 }
 
-form .form-group {
+.accordion-body .students-list form .student:first-child {
+    margin-top: 1.2rem;
+}
+
+.accordion-body .students-list form .student .fixed {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
-    padding: 0 10px;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 400px) {
 
-    form .form-group {
-        flex-direction: column;
+    .accordion-body .students-list form .student .fixed {
         justify-content: center;
     }
 }
 
-.form-group label {
-    font-size: 1rem;
-    font-weight: 600;
+.accordion-body .students-list form .student .fixed p {
+    font-size: 1.2rem;
     color: var(--logo-color);
+    text-align: center;
+    margin: 0;
+    text-transform: capitalize;
 }
 
-form .form-group input,
-form .form-group select {
+.accordion-body .students-list form .student .fixed p:not(strong) {
     font-weight: 500;
-    width: 65%;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    color: var(--logo-color);
-    background-color: var(--accent-color);
-    border-radius: 10px;
-    box-shadow: none;
-    outline: none;
-    border: none;
 }
 
-
-form .form-group input:focus,
-form .form-group select:focus {
-    box-shadow: none;
-    outline: none;
-    border: none;
+.accordion-body .students-list form .student .fixed p span {
+    text-transform: capitalize;
 }
 
-form .form-group input::placeholder,
-form .form-group select::placeholder {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--logo-color);
+.accordion-body .students-list form .student .form-group {
+    width: 100%;
 }
 
-@media screen and (max-width: 410px) {
-
-    form .form-group input::placeholder,
-    form .form-group select::placeholder {
-        text-align: center;
-        margin: auto;
-    }
+.accordion-body .students-list form .student .form-group select {
+    width: 100%;
 }
 
-
-form button {
-    width: 50%;
-    min-height: 40px;
-    padding: 0.5rem 1rem;
+.accordion-body .students-list form .student button {
+    width: 100%;
     font-size: 1rem;
     font-weight: 700;
     color: var(--accent-color);
     background-color: var(--logo-color);
+    transition: all 0.15s ease-in-out;
+    margin-bottom: 1rem;
+    min-height: 40px;
+}
+
+.accordion-body .students-list form .student button.edit-student-interview {
+    background-color: #8eec8e;
+    color: var(--logo-color);
+    margin-top: 1rem;
+}
+
+.accordion-body .students-list form .student button.delete-student-interview {
+    background-color: #ec8e8e;
+    color: var(--logo-color);
+}
+
+.accordion-body .students-list form .student button.delete-interview-slot {
+    background-color: #ec8e8e;
+    color: var(--logo-color);
+}
+
+
+
+/* Student Section */
+
+.accordion-body .student-data {
+    width: 100% !important;
+}
+
+.accordion-body .student-data p {
+    padding: 0 1rem;
+    color: var(--logo-color);
+    margin: 0.5rem auto;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: capitalize;
+}
+
+@media screen and (max-width: 370px) {
+
+    .accordion-body .student-data p {
+        font-size: 0.9rem;
+    }
+}
+
+.accordion-body .student-interviews {
+    width: 100% !important;
+    margin-bottom: 1rem;
+}
+
+.accordion-body .student-interviews table {
+    width: 100% !important;
+}
+
+.accordion-body .student-interviews table caption {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--logo-color);
+    margin: 1rem auto;
+    opacity: 0.8;
+    text-align: center;
+    word-spacing: 0.2rem;
+    border-top: 3px solid var(--logo-color);
+    border-bottom: 3px solid var(--logo-color);
+}
+
+.accordion-body .student-interviews table tr,
+.accordion-body .student-interviews table th {
+    text-transform: capitalize;
+}
+
+.accordion-body button {
+    width: 49%;
+    min-height: 40px;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--logo-color);
+    font-weight: 700;
+    background-color: #f5a4a4;
     border-radius: 10px;
     cursor: pointer;
     box-shadow: none;
     outline: none;
     border: none;
+    margin-bottom: 1.5rem;
+    transition: all 0.15s ease-in-out !important;
 }
 
-form button:focus {
+.accordion-body button:focus {
     box-shadow: none;
     outline: none;
     border: none;
+}
+
+.accordion-item {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.accordion-collapse {
+    border-radius: 10px;
+    background-color: rgba(255, 245, 219, 0.85);
+}
+
+.accordion-header,
+.accordion-button {
+    background-color: var(--background-color);
+    border-radius: 10px !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+.accordion-header .round,
+.accordion-button .round {
+    transition: all 0.15s ease-in-out !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+.accordion-button:not(.collapsed) {
+    transition: all 0.15s ease-in-out;
+    color: var(--logo-color);
+    background-color: var(--background-color);
+    box-shadow: none;
 }

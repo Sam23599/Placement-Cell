@@ -3,13 +3,14 @@
 <section class="home">
     <% if (locals.user) { %>
 <div class="homepage">
-	<!-- Banner -->
-	<div class="banner">
-		<h2>Team Career Camp 🔥</h2>
+
+    <div class="banner">
+		<h2>E-Cell 🔥</h2>
 	</div>
-	<!-- Dashboard -->
+
+    <!-- Dashboard -->
 	<div class="dashboard">
-        
+
 		<!-- Students Section -->
 		<div class="students">
 			<h3>Students</h3>
@@ -18,7 +19,7 @@
 				<!-- Don't use let with this loop here -->
 				<% for(student of students){ %>
 				<!-- Accordion Item -->
-				<%- include('_student-accordion.ejs'); %>
+				<%- include('_students-section.ejs'); %>
 				<!-- Accordion Item -->
 				<% } %>
 			</div>
@@ -32,7 +33,7 @@
 				<!-- Don't use let with this loop here -->
 				<% for(company of companies){ %>
 				<!-- Accordion Item -->
-				<%- include('_interview-accordion.ejs'); %>
+				<%- include('_interviews-section.ejs'); %>
 				<!-- Accordion Item -->
 				<% } %>
 			</div>

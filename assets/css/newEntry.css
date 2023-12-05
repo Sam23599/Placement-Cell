@@ -1,0 +1,242 @@
+
+/* Common styling for add-students/add-interviews pages */
+
+.displayContainer {
+    width: 95%;
+    height: 950%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: auto;
+}
+
+.displayContainer #addDetails {
+    border: 2px solid var(--logo-color);
+    padding: 10px;
+    margin-top: 10rem;
+    margin-bottom: 3.5rem;
+    width: 80%;
+    min-width: 270px !important;
+    min-height: 420px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 5px 5px 2px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 233, 174, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+@media screen and (max-width: 850px) {
+    .displayContainer #addDetails {
+        margin-top: 10rem;
+        margin-bottom: 3.5rem;
+    }
+}
+
+@media screen and (max-height: 555px) {
+    .displayContainer #addDetails {
+        margin-top: 150px;
+        margin-bottom: 50px;
+    }
+}
+
+
+form {
+    width: 100%;
+    min-height: 400px;
+    background-color: rgba(255, 245, 219, 0.25);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--logo-color);
+    margin: 10px 0;
+    opacity: 0.7;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 850px) {
+    form h2 {
+        margin-bottom: 1.5rem;
+    }
+}
+
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2.5rem;
+}
+
+.form-container input[type="file"],
+.form-container input[type="file"]::-webkit-file-upload-button {
+    cursor: pointer;
+    right: 0px;
+    bottom: 0px;
+    /* display: none; */
+}
+
+@media screen and (max-width: 800px) {
+    .form-container {
+        flex-direction: column;
+        gap: 3rem;
+        margin-top: 1rem;
+    }
+}
+
+.upload-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    min-width: 230px;
+    min-height: 230px;
+    border-radius: 10px;
+    box-shadow: 1px 5px 5px 2px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.upload-wrapper img {
+    width: 100%;
+    height: 100%;
+    margin: 0%;
+    padding: 0%;
+    -o-object-fit: cover;
+    -o-object-position: center;
+    -mz-object-fit: cover;
+    -mz-object-position: center;
+    -webkit-object-fit: cover;
+    -webkit-object-position: center;
+    object-fit: cover;
+    object-position: center;
+    aspect-ratio: 1/1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.upload-wrapper:hover {
+    transition: 200ms filter linear;
+    filter: grayscale(1);
+}
+
+@media screen and (max-width: 500px) {
+    .upload-wrapper {
+        min-width: 170px;
+        min-height: 170px;
+    }
+}
+
+.upload-wrapper input[type="file"] {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    font-size: 300px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    z-index: 2;
+}
+
+.info {
+    width: 60%;
+    height: 60%;
+}
+
+form .form-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 10px;
+}
+
+@media screen and (max-width: 410px) {
+
+    form .form-group {
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.form-group label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--logo-color);
+}
+
+form .form-group input,
+form .form-group select {
+    font-weight: 500;
+    width: 65%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: var(--logo-color);
+    background-color: var(--accent-color);
+    border-radius: 10px;
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+
+form .form-group input:focus,
+form .form-group select:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+form .form-group input::placeholder,
+form .form-group select::placeholder {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--logo-color);
+}
+
+@media screen and (max-width: 410px) {
+
+    form .form-group input::placeholder,
+    form .form-group select::placeholder {
+        text-align: center;
+        margin: auto;
+    }
+}
+
+
+form button {
+    width: 50%;
+    min-height: 40px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    background-color: var(--logo-color);
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+form button:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}

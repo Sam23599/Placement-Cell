@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const interviewSchema = new mongoose.Schema({
 
-    company: {
+    companyName: {
         type : String,
         required : true
     },

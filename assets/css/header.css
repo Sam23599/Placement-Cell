@@ -8,6 +8,11 @@
     text-align: center;
 }
 
+.nav .container{
+    max-width: 100%;
+    padding: 0;
+}
+
 .nav div.logo {
     float: left;
     width: auto;
@@ -43,7 +48,7 @@
     width: auto;
     height: 65px;
     padding: 0;
-    padding-right: 2rem;
+    padding-right: 1rem;
     display: flex;
     align-items: center;
 }
@@ -78,7 +83,7 @@
     transition: all 0.4s ease;
     /* backdrop-filter: blur(10px); */
     background-color: rgba(23, 20, 20, 0.5);
-    /* Red color with 50% opacity */
+    z-index: 1;
 }
 
 
@@ -295,7 +300,7 @@
 
 /* MEIDA QUERIES for variable screens */
 
-@media screen and (min-width: 910px)  {
+@media screen and (min-width: 992px)  {
     .container {
         margin: 0;
         display: flex;
@@ -303,7 +308,7 @@
     }
 }
 
-@media screen and (max-width: 910px) {
+@media screen and (max-width: 992px) {
     .navTrigger {
         display: block;
     }
