@@ -5,111 +5,171 @@
 			data-bs-target="#student-<%= student._id %>" aria-expanded="false"
 			aria-controls="student-<%= student._id %>">
 			<%= student.name %>
-				<%= student.gender==="male" ? "👦" : "👧" %>
+				<%= student.gender==="Male" ? "👦" : "👧" %>
 		</button>
 	</h2>
 	<div id="student-<%= student._id %>" class="accordion-collapse collapse"
 		aria-labelledby="student-heading-<%= student._id %>">
 
-		<!-- Accordion Body -->
-		<div class="accordion-body">
-			<!-- <img src="<%= student.avatar %>" alt="<%= student.name %>" /> -->
+		<form method="post" id="studentForm" class="student-form">
+			<!-- Accordion Body -->
+			<div class="accordion-body">
+				<!-- <img src="<%= student.avatar %>" alt="<%= student.name %>" /> -->
 
-			<div class="student-data">
-				
-				<!-- Student Name -->
-				<p>
-					<strong class="stud">Name:&ensp;</strong><span>
-						<%= student.name %>
-					</span>
-				</p>
-				<!-- Student Age -->
-				<p>
-					<strong class="stud">Age:&ensp;</strong><span>
-						<%= student.age %>
-					</span>
-				</p>
-				<!-- Student Gender -->
-				<p>
-					<strong class="stud">Gender:&ensp;</strong><span>
-						<%= student.gender %>
-					</span>
-				</p>
-				<!-- Student College -->
-				<p>
-					<strong class="stud">College:&ensp;</strong><span>
-						<%= student.college %>
-					</span>
-				</p>
-				<!-- Student Batch -->
-				<p>
-					<strong class="stud">Batch:&ensp;</strong><span>
-						<%= student.batch.name %>
-					</span>
-				</p>
-				<!-- Student Status -->
-				<p>
-					<strong class="stud">Status:&ensp;</strong><span>
-						<%= student.status %>
-					</span>
-				</p>
-				<!-- Student Scores -->
-				<p>
-					<strong class="stud">DSA Score:&ensp;</strong><span>
-						<%= student.scores.dsa_score %>
-					</span>
-				</p>
-				<p>
-					<strong class="stud">React Score:&ensp;</strong><span>
-						<%= student.scores.react_score %>
-					</span>
-				</p>
-				<p>
-					<strong class="stud">Web Development Score:&ensp;</strong><span>
-						<%= student.scores.webd_score %>
-					</span>
-				</p>
-			</div>
+				<div class="student-data">
 
-			<div class="student-interviews table-responsive">
-				<!-- Student Interviews -->
-				<table class="table table-warning table-hover caption-top">
-					<caption>
-						Interviews
-					</caption>
-					<thead class="table-dark">
-						<tr>
-							<th scope="col">Company</th>
-							<th scope="col">Date</th>
-							<th scope="col">Result</th>
-						</tr>
-					</thead>
-					<!-- Table Data -->
-					<tbody class="table-group-divider">
-						<% for(let interview of student.interviews){ %>
-							<tr id="<%= interview.company._id %>">
-								<th scope="row">
-									<%= interview.company.companyName %>
-								</th>
-								<td>
-									<%= new Date(interview.company.date).toLocaleDateString() %>
-								</td>
-								<td>
-									<%= interview.result %>
-								</td>
+					<!-- Student Name -->
+					<p>
+						<strong class="stud">Name:&ensp;</strong>
+						<span class="onEditFields">
+							<%= student.name %>
+						</span>
+						<input type="text" class="form-control onSaveFields" id="name" placeholder="<%= student.name %>"
+							name="name" value="<%= student.name %>" required />
+					</p>
+
+					<!-- Student Age -->
+					<p>
+						<strong class="stud">Age:&ensp;</strong>
+						<span class="onEditFields">
+							<%= student.age %>
+						</span>
+						<input type="number" class="form-control onSaveFields" id="age" placeholder="<%= student.age %>"
+							name="age" value="<%= student.age %>" required />
+					</p>
+					<!-- Student Gender -->
+					<p>
+						<strong class="stud">Gender:&ensp;</strong>
+						<span class="onEditFields">
+							<%= student.gender %>
+						</span>
+						<select class="form-select form-control onSaveFields custom-select" id="gender" name="gender"
+							required>
+							<option selected value="<%= student.gender %>">
+								<%= student.gender %>
+							</option>
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+							<option value="Other">Other</option>
+						</select>
+					</p>
+					<!-- Student College -->
+					<p>
+						<strong class="stud">College:&ensp;</strong>
+						<span class="onEditFields">
+							<%= student.college %>
+						</span>
+						<input type="text" class="form-control onSaveFields" id="college"
+							placeholder="<%= student.college %>" name="college" value="<%= student.college %>"
+							required />
+					</p>
+					<!-- Student Batch -->
+					<p>
+						<strong class="stud">Batch:&ensp;</strong>
+						<span class="onEditFields">
+							<%= student.batch %>
+						</span>
+						<select class="form-select form-control onSaveFields custom-select" id="batch" name="batch"
+							required>
+							<option selected value="<%= student.batch %>">
+								<%= student.batch %>
+							</option>
+							<option value="A1">A1</option>
+							<option value="A2">A2</option>
+							<option value="B1">B1</option>
+							<option value="B2">B2</option>
+						</select>
+					</p>
+					<!-- Student Status -->
+					<p>
+						<strong class="stud">Status:&ensp;</strong>
+						<span class="onEditFields">
+							<%= student.status %>
+						</span>
+						<select class="form-select form-control onSaveFields custom-select" id="status" name="status"
+							required>
+							<option selected value="<%= student.status %>">
+								<%= student.status %>
+							</option>
+							<option value="Placed">Placed</option>
+							<option value="Not Placed">Not Placed</option>
+						</select>
+					</p>
+					<!-- Student Scores -->
+					<p>
+						<strong class="stud">DSA Score:&ensp;</strong>
+						<span class="onEditFields">
+							<%= student.scores.dsa_score %>
+						</span>
+						<input type="number" class="form-control onSaveFields" id="dsa_score"
+							placeholder="<%= student.scores.dsa_score %>" name="dsa_score" min="0" max="30"
+							value="<%= student.scores.dsa_score %>" required />
+					</p>
+					<p>
+						<strong class="stud">Web-D Score:&ensp;</strong>
+						<span class="onEditFields">
+							<%= student.scores.webd_score %>
+						</span>
+						<input type="number" class="form-control onSaveFields" id="webd_score"
+							placeholder="<%= student.scores.webd_score %>" name="webd_score" min="0" max="30"
+							value="<%= student.scores.webd_score %>" required />
+					</p>
+					<p>
+						<strong class="stud">React Score:&ensp;</strong>
+						<span class="onEditFields">
+							<%= student.scores.react_score %>
+						</span>
+						<input type="number" class="form-control onSaveFields" id="react_score"
+							placeholder="<%= student.scores.react_score %>" name="react_score" min="0" max="30"
+							value="<%= student.scores.react_score %>" required />
+					</p>
+				</div>
+
+				<div class="student-interviews table-responsive">
+					<!-- Student Interviews -->
+					<table class="table table-warning table-hover caption-top">
+						<caption>
+							Interviews
+						</caption>
+						<thead class="table-dark">
+							<tr>
+								<th scope="col">Company</th>
+								<th scope="col">Date</th>
+								<th scope="col">Result</th>
 							</tr>
-							<% } %>
-					</tbody>
-				</table>
+						</thead>
+						<!-- Table Data -->
+						<tbody class="table-group-divider">
+							<% for(let interview of student.interviews){ %>
+								<tr id="<%= interview.company._id %>">
+									<th scope="row">
+										<%= interview.company.companyName %>
+									</th>
+									<td>
+										<%= new Date(interview.company.date).toLocaleDateString() %>
+									</td>
+									<td>
+										<%= interview.result %>
+									</td>
+								</tr>
+								<% } %>
+						</tbody>
+					</table>
+				</div>
+				<!-- Delete Student -->
+				<button class="edit-student-button onEditFields" data-id="<%= student.id %>" type="button">
+					Edit&ensp;<i class="fa-solid fa-pen"></i>
+				</button>
+				<button class="save-student-button onSaveFields" data-id="<%= student.id %>" type="submit"
+					class="submit-btn">
+					Save&ensp;<i class="fa-solid fa-floppy-disk"></i>
+				</button>
+				<button class="delete-student-button deleteButton" data-id="<%= student.id %>" type="button">
+					Delete&ensp;<i class="fa-solid fa-trash"></i>
+				</button>
 			</div>
-			<!-- Delete Student -->
-			<button class="delete-student-button" data-id="<%= student.id %>">
-				Edit&ensp;<i class="fa-solid fa-pen"></i>
-			</button>
-			<button class="delete-student-button" data-id="<%= student.id %>">
-				Delete&ensp;<i class="fa-solid fa-trash"></i>
-			</button>
-		</div>
+		</form>
+
 	</div>
 </div>
 

@@ -1,10 +1,11 @@
-<div class="interview-accordion-item accordion-item accordion-item-<%= company._id %>" id="accordion-item-<%= company._id %>">
+<div class="interview-accordion-item accordion-item accordion-item-<%= company._id %>"
+	id="accordion-item-<%= company._id %>">
 	<h2 class="accordion-header" id="interview-heading-<%= company._id %>">
 		<!-- Accordion Button -->
 		<button class="accordion-button interview-button d-block text-center" type="button" data-bs-toggle="collapse"
 			data-bs-target="#interview-<%= company._id %>" aria-expanded="false"
-			aria-controls="interview-<%= company._id %>">
-			<%= company.companyName %> 🚀
+			aria-controls="interview-<%= company._id %>" >
+			<%= company.companyName %> <i class="fa-solid fa-cube" style="color: lightsalmon; "></i>
 		</button>
 	</h2>
 	<div id="interview-<%= company._id %>" class="accordion-collapse collapse"

@@ -7,6 +7,7 @@ const passport = require('passport');
 // dashboard
 const homeController = require("../controllers/home_controller");
 router.get('/', passport.checkAuthentication, homeController.home);
+router.post('/updateStudent', passport.checkAuthentication, homeController.updateStudent);
 router.get('/students/add-new', passport.checkAuthentication, homeController.students);
 router.get('/interviews/add-new', passport.checkAuthentication, homeController.interviews);
 

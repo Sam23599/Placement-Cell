@@ -16,8 +16,8 @@ module.exports.home = async function (req, res) {
             });
 
         const interview = await Interview.find({});
-        console.log('students: ', students)
-        console.log('interviews', interview)
+        // console.log('students: ', students)
+        // console.log('interviews', interview)
         return res.render('home', {
             title: 'Placement Cell',
             students: students,
@@ -58,32 +58,10 @@ module.exports.addStudent = async function (req, res) {
             })
         });
         */
-        
+
         let student = await Student.findOne({ name: req.body.name });
 
-        if (student) {
-            console.log('Student already exists');
-            //Update Student
-            await student.updateOne({
-                name: req.body.name,
-                age: req.body.age,
-                gender: req.body.gender,
-                college: req.body.college,
-                status: req.body.status,
-                batch: req.body.batch,
-                'scores.dsa_score': req.body.scores.dsa_score,
-                'scores.webd_score': req.body.scores.webd_score,
-                'scores.react_score': req.body.scores.react_score,
-                avatar: req.body.avatar ||
-                    (req.body.gender === "male"
-                        ? "images/male-avatar.svg"
-                        : "images/female-avatar.svg"),
-            })
-
-            req.flash('success', 'Student updated');
-            return res.redirect('back');
-        }
-        else {
+        if (!student) {
             console.log('Creating new Student');
 
             // Call the uploadedFile static function to handle file upload
@@ -105,20 +83,61 @@ module.exports.addStudent = async function (req, res) {
                     'scores.webd_score': req.body.webd_score,
                     'scores.react_score': req.body.react_score,
                     avatar: req.body.avatar ||
-                        (req.body.gender === "male"
-                            ? "images/male-avatar.svg"
-                            : "images/female-avatar.svg"),
+                        (req.body.gender === "Male"
+                            ? "images/Male-avatar.svg"
+                            : "images/Female-avatar.svg"),
                 });
 
                 console.log('New Student created:', newStudent);
                 return res.redirect('back');
             });
         }
+        else {
+            console.log('Student already exists');
+            return res.redirect('back');
+        }
     } catch (error) {
-        console.error('Error on creating/updating student:', error);
+        console.error('Error on creating student:', error);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 
+}
+
+module.exports.updateStudent = async function (req, res) {
+    console.log('Inside update student controller');
+    console.log(req.body);
+
+    try {
+        let student = await Student.findOne({ _id: req.body.id });
+
+        if (student) {
+            await student.updateOne({
+                ...req.body,
+                'scores.dsa_score': req.body.dsa_score,
+                'scores.webd_score': req.body.webd_score,
+                'scores.react_score': req.body.react_score,
+                avatar: req.body.avatar || (req.body.gender === "Male" ? "images/Male-avatar.svg" : "images/Female-avatar.svg"),
+            });
+
+            return res.json({
+                success: true,
+                message: 'Student updated successfully',
+                data: student,
+            });
+        } else {
+            console.log('Student not found');
+            return res.status(404).json({
+                success: false,
+                message: 'Student not found',
+            });
+        }
+    } catch (error) {
+        console.error('Error on updating student:', error);
+        return res.status(500).json({
+            success: false,
+            error: 'Internal Server Error',
+        });
+    }
 }
 
 module.exports.test = async function (req, res) {
@@ -141,7 +160,7 @@ module.exports.addInterview = async function (req, res) {
     console.log('Inside add interview controller');
 
     try {
-        let interview = await Interview.findOne({ companyName: req.body.company});
+        let interview = await Interview.findOne({ companyName: req.body.company });
         if (!interview) {
             // Create a new interview and save it to the database
             const newInterview = await Interview.create({
@@ -149,10 +168,10 @@ module.exports.addInterview = async function (req, res) {
                 date: req.body.date,
                 students: []
             })
-            
+
             console.log('New Company Interview crearted', newInterview);
             return res.redirect('back');
-        }else{
+        } else {
             console.log('Same compnay interview exists already');
             return res.redirect('back');
         }

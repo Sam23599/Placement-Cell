@@ -117,7 +117,7 @@
 /* Common Accordion stylings */
 
 .accordion {
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: 100% !important;
 }
 
@@ -356,7 +356,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-transform: capitalize;
+    text-transform: none;
 }
 
 @media screen and (max-width: 370px) {
@@ -410,11 +410,71 @@
     transition: all 0.15s ease-in-out !important;
 }
 
+
 .accordion-body button:focus {
     box-shadow: none;
     outline: none;
     border: none;
 }
+
+.edit-student-button {
+    background-color: #8eec8e !important;
+}
+
+.save-student-button {
+    background-color: #a5a5a5 !important;
+}
+
+.onSaveFields {
+    display: none;
+}
+
+.accordion-body .student-data p :is(input, select, span) {
+    font-weight: 500;
+    width: 65%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: var(--logo-color);
+    background-color: var(--accent-color);
+    border-radius: 10px;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    text-align: right;
+    text-transform: capitalize;
+}
+
+.accordion-body .student-data p :is(input:focus, select:focus) {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+.accordion-body .student-data p :is(input::placeholder, select::placeholder) {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: right;
+    color: var(--logo-color);
+}
+
+@media screen and (max-width: 410px) {
+    .accordion-body .student-data p :is(input::placeholder, select::placeholder) {
+        text-align: right;
+        margin: auto;
+    }
+}
+
+/* Hide the default arrow button */
+.custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: none; 
+    background-size: 20px; 
+    border: 1px solid #ccc !important;
+    cursor: pointer;
+}
+
 
 .accordion-item {
     border: none;
