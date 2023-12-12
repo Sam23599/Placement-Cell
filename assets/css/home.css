@@ -138,6 +138,7 @@
     font-family: var(--font-family);
     color: var(--logo-color);
     word-break: break-all;
+    text-transform: capitalize;
 }
 
 .accordion-item h2 button:focus {
@@ -232,7 +233,7 @@
     text-align: center;
 }
 
-.accordion-body .students-list+p {
+.accordion-body .students-list form p {
     font-size: 2rem;
     font-weight: 600;
     color: var(--logo-color);
@@ -240,13 +241,43 @@
     text-align: center;
 }
 
-.accordion-body .students-list+p i {
+.accordion-body .students-list form p i {
     transition: all 0.15s ease-in-out;
     cursor: pointer;
 }
 
-.accordion-body .students-list+p i:hover {
+.accordion-body .students-list form p i:hover {
     color: #21b416;
+}
+
+.accordion-body .students-list form .add-new-candidate {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 2rem;
+    border-top: 1px solid var(--logo-color);
+    padding-top: 1rem;
+}
+
+.accordion-body .students-list form .add-new-candidate .form-group {
+    width: 100%;
+}
+
+.accordion-body .students-list form .add-new-candidate .form-group select {
+    width: 100%;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: var(--logo-color);
+    background-color: var(--accent-color);
+    border-radius: 10px;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    text-align: right;
+    text-transform: capitalize;
 }
 
 .students-list form {
@@ -262,15 +293,22 @@
 .students-list form .student {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
     align-items: center;
-    margin-bottom: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0.5rem 0;
+}
+.students-list form .student:hover {
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    background-color: lavenderblush;
+    cursor: pointer;
+    padding: 4px;
 }
 
-.accordion-body .students-list form .student:first-child {
-    margin-top: 1.2rem;
-}
 
 .accordion-body .students-list form .student .fixed {
     width: 100%;
@@ -289,10 +327,14 @@
 }
 
 .accordion-body .students-list form .student .fixed p {
-    font-size: 1.2rem;
+    padding: 0 1rem;
     color: var(--logo-color);
-    text-align: center;
-    margin: 0;
+    margin: 0.5rem auto;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     text-transform: capitalize;
 }
 
@@ -300,9 +342,20 @@
     font-weight: 500;
 }
 
-.accordion-body .students-list form .student .fixed p span {
+.accordion-body .students-list form .student .fixed p :is(span, select) {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: var(--logo-color);
+    background-color: var(--accent-color);
+    border-radius: 10px;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    text-align: right;
     text-transform: capitalize;
 }
+
 
 .accordion-body .students-list form .student .form-group {
     width: 100%;
@@ -313,30 +366,34 @@
 }
 
 .accordion-body .students-list form .student button {
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--accent-color);
-    background-color: var(--logo-color);
-    transition: all 0.15s ease-in-out;
-    margin-bottom: 1rem;
+    width: 49%;
     min-height: 40px;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--logo-color);
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    transition: all 0.15s ease-in-out !important;
 }
 
-.accordion-body .students-list form .student button.edit-student-interview {
+.accordion-body .students-list form .student button.edit-student-interview,
+.accordion-body .students-list form .student button.update-student-interview {
     background-color: #8eec8e;
-    color: var(--logo-color);
-    margin-top: 1rem;
 }
 
 .accordion-body .students-list form .student button.delete-student-interview {
     background-color: #ec8e8e;
-    color: var(--logo-color);
 }
 
 .accordion-body .students-list form .student button.delete-interview-slot {
     background-color: #ec8e8e;
-    color: var(--logo-color);
 }
 
 
@@ -464,13 +521,14 @@
     }
 }
 
-/* Hide the default arrow button */
+/* Hide the default arrow button on Select Fields */
 .custom-select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     background: none; 
     background-size: 20px; 
+    background-color: azure;
     border: 1px solid #ccc !important;
     cursor: pointer;
 }

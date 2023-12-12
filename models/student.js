@@ -47,7 +47,7 @@ const studentSchema = new mongoose.Schema({
                 trim: true,
                 required: true,
                 lowercase: true,
-                enum: ["Pass", "Fail", "Not Attended", "On Hold"],
+                enum: ["PASS", "FAIL", "Didn't Attempt", "On Hold"],
             },
         },
     ],

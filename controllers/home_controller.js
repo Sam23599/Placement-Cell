@@ -10,14 +10,14 @@ module.exports.home = async function (req, res) {
     try {
         const students = await Student.find({})
             .sort('-createdAt')
-            .populate('scores')
-            .populate({
-                path: 'interviews.company',
-            });
+            .populate('interviews.company');
 
-        const interview = await Interview.find({});
+        const interview = await Interview.find({})
+            .populate('students.student');
+
         // console.log('students: ', students)
         // console.log('interviews', interview)
+
         return res.render('home', {
             title: 'Placement Cell',
             students: students,
@@ -111,13 +111,19 @@ module.exports.updateStudent = async function (req, res) {
         let student = await Student.findOne({ _id: req.body.id });
 
         if (student) {
-            await student.updateOne({
-                ...req.body,
-                'scores.dsa_score': req.body.dsa_score,
-                'scores.webd_score': req.body.webd_score,
-                'scores.react_score': req.body.react_score,
-                avatar: req.body.avatar || (req.body.gender === "Male" ? "images/Male-avatar.svg" : "images/Female-avatar.svg"),
-            });
+            student = await Student.findOneAndUpdate(
+                { _id: req.body.id },
+                {
+                    $set: {
+                        ...req.body,
+                        'scores.dsa_score': req.body.dsa_score,
+                        'scores.webd_score': req.body.webd_score,
+                        'scores.react_score': req.body.react_score,
+                        avatar: req.body.gender === "male" ? "images/Male-avatar.svg" : "images/Female-avatar.svg",
+                    },
+                },
+                { new: true } 
+            );
 
             return res.json({
                 success: true,
@@ -138,6 +144,10 @@ module.exports.updateStudent = async function (req, res) {
             error: 'Internal Server Error',
         });
     }
+}
+
+module.exports.deleteStudent = async function (req, res){
+
 }
 
 module.exports.test = async function (req, res) {
@@ -180,4 +190,8 @@ module.exports.addInterview = async function (req, res) {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 
+}
+
+module.exports.deleteInterview = async function(req, res){
+    
 }

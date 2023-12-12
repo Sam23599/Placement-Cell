@@ -4,8 +4,7 @@
 		<button class="accordion-button student-button d-block text-center" type="button" data-bs-toggle="collapse"
 			data-bs-target="#student-<%= student._id %>" aria-expanded="false"
 			aria-controls="student-<%= student._id %>">
-			<%= student.name %>
-				<%= student.gender==="Male" ? "👦" : "👧" %>
+			<%= student.name %> <%= student.gender==="male" ? "👦" : "👧" %>
 		</button>
 	</h2>
 	<div id="student-<%= student._id %>" class="accordion-collapse collapse"
@@ -172,5 +171,3 @@
 
 	</div>
 </div>
-
-<script src="/js/student.js"></script>
