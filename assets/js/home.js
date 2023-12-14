@@ -117,6 +117,8 @@ try {
                         // Loop through input-fields/spans and update values
                         inputFields.forEach((inputField, index) => {
                             const adjacentSpan = inputField.previousElementSibling;
+                            console.log(inputField);
+                            console.log(adjacentSpan)
                             if (adjacentSpan && adjacentSpan.classList.contains('onEditFields') && adjacentSpan.tagName !== 'BUTTON') {
                                 adjacentSpan.textContent = inputField.value;
                             }
@@ -136,10 +138,46 @@ try {
 
 // student delete
 try {
+    function handleDeleteStudentButton(buttonClass) {
+        const deleteButtons = document.querySelectorAll(`.${buttonClass}`);
 
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const ancestor = button.closest('.student-accordion-item');
+                const studentId = button.getAttribute('data-id');
+
+                fetch('/deleteStudent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ studentId }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        // Remove the ancestor and its children from the DOM after successful response
+                        if (ancestor) {
+                            ancestor.remove();
+                        }
+                    })
+                    .catch(error => {
+                        console.log('Error:', error);
+                    });
+            });
+        });
+    }
+
+    handleDeleteStudentButton("delete-student-button");
 } catch (error) {
-
+    console.log(error);
 }
+
 
 
 
@@ -147,7 +185,7 @@ try {
 
 /* INTERVIEW SECTION */
 
-// delete company's interview from db 
+// delete company { updates student's interview in student section }
 try {
     function handleDeleteInterviewButton(buttonClass) {
         const deleteButtons = document.querySelectorAll(`.${buttonClass}`);
@@ -171,9 +209,17 @@ try {
                         return response.json();
                     })
                     .then(data => {
+                        console.log(data);
                         // Remove the ancestor and its children from the DOM
                         if (ancestor) {
                             ancestor.remove();
+                        }
+                        const allStudents = document.querySelectorAll(`.accordion-item`);
+
+                        // wokring fine but still showing some error on browser console on sI.remove(): maybe some issue with for loop
+                        for (const student of allStudents) {
+                            const studentInterviewRow = student.querySelector(`#interview-company-${data.deletedCompanyID}`);
+                            studentInterviewRow.remove();
                         }
                     })
                     .catch(error => {
@@ -183,7 +229,6 @@ try {
         });
     }
 
-    // Use the function for the delete-interview buttons
     handleDeleteInterviewButton("delete-interview-button");
 } catch (error) {
     console.log(error);
@@ -282,7 +327,7 @@ try {
 }
 
 
-// add button -> show student's list to add to company's interview 
+// toggle show/hide add student button for interview
 try {
     const addStudentButtons = document.querySelectorAll('.add-student-BTN');
 
@@ -311,18 +356,224 @@ try {
 }
 
 
+// create new interview of a student in a company
+try {
+    const addStudentButtons = document.querySelectorAll(".add-student-interview");
+
+    addStudentButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const candidateId = button.getAttribute('data-id');
+            const form = button.closest('.interview-form');
+            const formData = new FormData(form);
+
+            formData.append('candidateId', candidateId);
+
+            fetch("/createInterview", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(Object.fromEntries(formData)),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Interview created successfully:', data);
+
+                    // create new row of interview in student section
+                    function createInterviewRow(data) {
+                        const newRow = document.createElement('tr');
+                        newRow.id = `interview-company-${data.company._id}`;
+
+                        newRow.innerHTML = `
+                          <th scope="row">${data.company.companyName}</th>
+                          <td>${new Date(data.company.date).toLocaleDateString()}</td>
+                          <td>${data.result}</td>
+                        `;
+
+                        return newRow;
+                    }
+
+                    const student = document.querySelector(`.accordion-item-${data.student._id}`);
+                    const tableBody = student.querySelector('tbody');
+                    const newTableRow = createInterviewRow(data);
+                    tableBody.appendChild(newTableRow);
+
+
+                    
+                    // create new student-interview div in interview section
+                    function createInterviewElement(data) {
+                        const interviewElement = document.createElement('div');
+                        interviewElement.classList.add('student', `student-interview-${data.company._id}`);
+                        interviewElement.id = data.company._id;
+
+                        interviewElement.innerHTML = `
+                          <div class="fixed">
+                            <p>
+                              <strong>Name:&ensp;</strong>
+                              <span>${data.student.name}</span>
+                            </p>
+                            <p>
+                              <strong>Result:&ensp;</strong>
+                              <span class="onEditFields">${data.result}</span>
+                              <select class="form-select form-control onSaveFields custom-select" id="result-${data.student._id}-select" name="result" required>
+                                <option selected value="${data.result}">${data.result}</option>
+                                <option value="pass">Pass</option>
+                                <option value="fail">Fail</option>
+                                <option value="on hold">On Hold</option>
+                                <option value="didn't attempt">Didn't Attempt</option>
+                              </select>
+                            </p>
+                          </div>
+                          <button class="edit-student-interview hide" data-id="${data.student._id}" type="button">
+                            Edit&ensp;<i class="fa-solid fa-pen-to-square"></i>
+                          </button>
+                          <button class="update-student-interview hide" data-id="${data.student._id}" type="button">
+                            Update Student&ensp;<i class="fa-solid fa-arrow-rotate-left"></i>
+                          </button>
+                          <button class="delete-student-interview hide" data-id="${data.student._id}" type="button">
+                            Delete&ensp;<i class="fa-solid fa-trash"></i>
+                          </button>
+                        `;
+
+                        return interviewElement;
+                    }
+                    
+                    const interviewForm = document.querySelector(`#company-${data.company._id}-students-form`);
+                    const newInterviewElement = createInterviewElement(data);
+                    interviewForm.prepend(newInterviewElement);
+
+                })
+                .catch(error => {
+                    console.log("Error:", error);
+                });
+        });
+    });
+} catch (error) {
+    console.log('Error: ', error);
+}
+
+
+// update student/interview
+try {
+    const updateButtons = document.querySelectorAll(".update-student-interview");
+
+    updateButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const studentId = button.getAttribute('data-id');
+            const parentDiv = button.closest('.student');
+            const companyId = parentDiv.getAttribute('id');
+
+            const fixedDiv = parentDiv.querySelector('.fixed');
+            const resultSelect = fixedDiv.querySelector('[name="result"]');
+
+            // Create an object with the values
+            const requestData = {
+                studentId: studentId,
+                companyId: companyId,
+                result: resultSelect.value
+            };
+            fetch("/updateStudentInterview", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestData),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const updatedData = data;
+                    console.log('UpdatedData:', data);
+
+                    // update value dynamically in interview section
+                    const studentDiv = document.querySelector(`.student-interview-${updatedData.company._id}`)
+                    const selectElement = studentDiv.querySelector('select');
+                    const adjacentSpan = selectElement.previousElementSibling;
+                    adjacentSpan.textContent = selectElement.value;
+
+                    // update value dynamically in student section
+                    const student = document.querySelector(`.accordion-item-${updatedData.student._id}`);
+                    const studentInterviewRow = student.querySelector(`#interview-company-${updatedData.company._id}`);
+                    const lastElementChildResult = studentInterviewRow.lastElementChild;
+                    lastElementChildResult.textContent = selectElement.value;
+                })
+                .catch(error => {
+                    console.log("Error:", error);
+                });
+        });
+    });
+} catch (error) {
+    console.log('Error: ', error);
+}
 
 
 
 
-// CREATE NEW STUDENT INTERVIEW()
+// delete student interview 
+try {
+    function handleDeleteInterviewButton(buttonClass) {
+        const deleteButtons = document.querySelectorAll(`.${buttonClass}`);
+
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const ancestor = button.closest('.student');
+                const candidateId = button.getAttribute('data-id');
+                const companyId = ancestor.getAttribute('id');
+
+                fetch('/deleteStudentInterview', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ candidateId, companyId }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        // Remove the ancestor and its children from the DOM after a successful response
+                        if (ancestor) {
+                            ancestor.remove();
+                        }
+
+
+                    })
+                    .catch(error => {
+                        console.log('Error:', error);
+                    });
+            });
+        });
+    }
+
+    handleDeleteInterviewButton("delete-student-interview");
+} catch (error) {
+    console.log(error);
+}
 
 
 
 
-// create student's new interview for a company
+// dynamic delete features 
+// fix update toggle button in interview
+// dynamic status update
+// add report download feature
 try {
 
 } catch (error) {
-
+    console.log('Error: ', error);
 }

@@ -26,14 +26,15 @@
 
 			<div class="students-list">
 				<h5>Students List</h5>
-				<form action="/interviews/students/add" method="post" id="company-<%= company._id %>-students-form">
+				<form action="/createInterview" method="post" id="company-<%= company._id %>-students-form"
+					class="interview-form">
 					<!-- List of Interviews in the Company -->
 					<!-- Don't use let with this loop here -->
 					<% for(candidate of company.students){ %>
+
 						<!-- Students List  -->
 						<!-- Student Interview Data -->
 						<div class="student student-interview-<%= company._id %>" id="<%= company._id %>">
-							<!-- If the Student's Interview has been scheduled -->
 
 							<div class="fixed">
 								<p>
@@ -47,23 +48,25 @@
 									<span class="onEditFields">
 										<%= candidate.result %>
 									</span>
-									<select class="form-select form-control onSaveFields custom-select" id="result-<%= candidate._id %>-select"
-										name="result" required>
-										<option selected value="<%= candidate.result %>"> <%= candidate.result %></option>
-										<option value="PASS">Pass</option>
-										<option value="FAIL">Fail</option>
-										<option value="On Hold">On Hold</option>
-										<option value="Didn't Attempt">Didn't Attempt</option>
+									<select class="form-select form-control onSaveFields custom-select"
+										id="result-<%= candidate.student._id %>-select" name="result" required>
+										<option selected value="<%= candidate.result %>">
+											<%= candidate.result %>
+										</option>
+										<option value="pass">Pass</option>
+										<option value="fail">Fail</option>
+										<option value="on hold">On Hold</option>
+										<option value="didn't attempt">Didn't Attempt</option>
 									</select>
 								</p>
 							</div>
-							<button class="edit-student-interview hide" data-id="<%= candidate._id %>" type="button">
+							<button class="edit-student-interview hide" data-id="<%= candidate.student._id %>" type="button">
 								Edit&ensp;<i class="fa-solid fa-pen-to-square"></i>
 							</button>
-							<button class="update-student-interview hide" data-id="<%= candidate._id %>" type="button">
+							<button class="update-student-interview hide" data-id="<%= candidate.student._id %>" type="button">
 								Update Student&ensp;<i class="fa-solid fa-arrow-rotate-left"></i>
 							</button>
-							<button class="delete-student-interview hide" data-id="<%= candidate._id %>">
+							<button class="delete-student-interview hide" data-id="<%= candidate.student._id %>" type="button">
 								Delete&ensp;<i class="fa-solid fa-trash"></i>
 							</button>
 						</div>
@@ -71,8 +74,7 @@
 
 							<div class="add-new-candidate hide">
 								<div class="form-group">
-									<select class="form-select form-control custom-select"
-										id="student-<%= candidate._id %>-select" name="name" required>
+									<select class="form-select form-control custom-select" name="studentId" required>
 										<% for(let student of students){ %>
 											<option value="<%= student._id %>">
 												<%= student.name %>
@@ -81,15 +83,18 @@
 									</select>
 								</div>
 								<div class="form-group">
-									<select class="form-select form-control custom-select"
-										id="result-<%= candidate._id %>-select" name="result" required>
+									<select class="form-select form-control custom-select" name="result" required>
 										<option value="PASS">Pass</option>
 										<option value="FAIL">Fail</option>
 										<option value="On Hold">On Hold</option>
 										<option value="Didn't Attempt">Didn't Attempt</option>
 									</select>
 								</div>
-								<button class="add-student-interview" data-id="<%= candidate._id %>">
+								<div class="form-group hide">
+									<input type="text" value="<%= company._id %>" name="companyId">
+								</div>
+
+								<button class="add-student-interview" type="submit">
 									Add Student&ensp;<i class="fa-solid fa-circle-plus"></i>
 								</button>
 							</div>

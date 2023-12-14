@@ -47,9 +47,9 @@
 							<option selected value="<%= student.gender %>">
 								<%= student.gender %>
 							</option>
-							<option value="Male">Male</option>
-							<option value="Female">Female</option>
-							<option value="Other">Other</option>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+							<option value="other">Other</option>
 						</select>
 					</p>
 					<!-- Student College -->
@@ -90,8 +90,8 @@
 							<option selected value="<%= student.status %>">
 								<%= student.status %>
 							</option>
-							<option value="Placed">Placed</option>
-							<option value="Not Placed">Not Placed</option>
+							<option value="placed">Placed</option>
+							<option value="not placed">Not Placed</option>
 						</select>
 					</p>
 					<!-- Student Scores -->
@@ -140,7 +140,7 @@
 						<!-- Table Data -->
 						<tbody class="table-group-divider">
 							<% for(let interview of student.interviews){ %>
-								<tr id="<%= interview.company._id %>">
+								<tr id="interview-company-<%= interview.company._id %>">
 									<th scope="row">
 										<%= interview.company.companyName %>
 									</th>

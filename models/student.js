@@ -17,7 +17,7 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true,
         lowercase: true,
-        enum: ["Male", "Female", "Other"],
+        enum: ["male", "female", "other"],
     },
     college: {
         type: String,
@@ -26,10 +26,10 @@ const studentSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: "Not Placed",
+        default: "not placed",
         trim: true,
         lowercase: true,
-        enum: ["Placed", "Not Placed"],
+        enum: ["placed", "not placed"],
     },
     batch: {
         type: String,
@@ -47,8 +47,7 @@ const studentSchema = new mongoose.Schema({
                 trim: true,
                 required: true,
                 lowercase: true,
-                enum: ["PASS", "FAIL", "Didn't Attempt", "On Hold"],
-            },
+                enum: ["pass", "fail", "didn't attempt", "on hold"],            },
         },
     ],
     scores: {

@@ -3,21 +3,29 @@ const router = express.Router();
 const passport = require('passport');
 
 
-
-// dashboard
 const homeController = require("../controllers/home_controller");
-router.get('/', passport.checkAuthentication, homeController.home);
-router.post('/updateStudent', passport.checkAuthentication, homeController.updateStudent);
-router.get('/students/add-new', passport.checkAuthentication, homeController.students);
-router.get('/interviews/add-new', passport.checkAuthentication, homeController.interviews);
-router.post('/deleteInterview', passport.checkAuthentication, homeController.deleteInterview);
 
 // for testing only
-router.post('/test', homeController.test);
+router.post('/test', homeController.test)
+
+// dashboard: pages
+router.get('/', passport.checkAuthentication, homeController.home);
+router.get('/studentsPage', passport.checkAuthentication, homeController.studentsPage);
+router.get('/companiesPage', passport.checkAuthentication, homeController.companiesPage);
+
+// operations on home page: student section
+router.post('/updateStudent', passport.checkAuthentication, homeController.updateStudent);
+router.post('/deleteStudent', passport.checkAuthentication, homeController.deleteStudent);
+
+// operations on home page: interview section
+router.post('/deleteInterview', passport.checkAuthentication, homeController.deleteInterview);
+router.post('/createInterview', passport.checkAuthentication, homeController.createInterview);
+router.post('/deleteStudentInterview', passport.checkAuthentication, homeController.deleteStudentInterview);
+router.post('/updateStudentInterview', passport.checkAuthentication, homeController.updateStudentInterview);
 
 // Add new entries
-router.post('/students/add-new-student', passport.checkAuthentication, homeController.addStudent);
-router.post('/interview/add-new-interview', passport.checkAuthentication, homeController.addInterview);
+router.post('/students/add-new-student', passport.checkAuthentication, homeController.createStudent);
+router.post('/companies/add-new-company', passport.checkAuthentication, homeController.createCompany);
 
 
 // auth controllers
