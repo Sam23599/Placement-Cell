@@ -2,6 +2,8 @@ const Student = require('../models/student');
 const Interview = require('../models/interview');
 const multer = require('multer');
 const upload = multer();
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
 
 module.exports.test = async function (req, res) {
     console.log('test middleware: ');
@@ -403,10 +405,65 @@ module.exports.createCompany = async function (req, res) {
 
 // Download Report
 
-module.exports.downloadReport = async function (req, res) {
-    try {
-        
-    } catch (error) {
-        
-    }
+function convertToCSV(data, res) {
+    const csvWriter = createCsvWriter({
+        path: 'students.csv',
+        header: [
+            { id: 'name', title: 'Name' },
+            { id: 'age', title: 'Age' },
+            { id: 'gender', title: 'Gender' },
+            { id: 'college', title: 'College' },
+            { id: 'status', title: 'Status' },
+            { id: 'batch', title: 'Batch' },
+            { id: 'interviews', title: 'Interviews' },
+            { id: 'dsa_score', title: 'DSA Score' },
+            { id: 'webd_score', title: 'WebD Score' },
+            { id: 'react_score', title: 'React Score' },
+            { id: 'avatar', title: 'Avatar' },
+        ],
+    });
+
+    csvWriter.writeRecords(data)
+        .then(() => {
+            console.log('CSV file written successfully');
+            res.download('students.csv');
+        });
 }
+
+module.exports.downloadReport = async (req, res, next) => {
+    if (req.query.export === 'csv') {
+        try {
+            const students = await Student.find({})
+                .populate({
+                    path: 'interviews.company',
+                    select: 'companyName result'
+                })
+
+            const studentsData = students.map(student => {
+                const interviewsString = student.interviews.map(interview => `${interview.company.companyName}: ${interview.result}`).join(', \n');
+
+                return {
+                    name: student.name,
+                    age: student.age,
+                    gender: student.gender,
+                    college: student.college,
+                    status: student.status,
+                    batch: student.batch,
+                    interviews: interviewsString,
+                    dsa_score: student.scores.dsa_score,
+                    webd_score: student.scores.webd_score,
+                    react_score: student.scores.react_score,
+                    avatar: student.avatar,
+                };
+            });
+
+            // Call the CSV conversion function
+            convertToCSV(studentsData, res);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    } else {
+        next();
+    }
+};
