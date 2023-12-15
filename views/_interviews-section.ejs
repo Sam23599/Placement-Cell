@@ -34,7 +34,7 @@
 
 						<!-- Students List  -->
 						<!-- Student Interview Data -->
-						<div class="student student-interview-<%= company._id %>" id="<%= company._id %>">
+						<div class="student student-interview-<%= company._id %> student-<%= candidate.student._id %>" id="<%= company._id %>">
 
 							<div class="fixed">
 								<p>
@@ -45,10 +45,10 @@
 								</p>
 								<p>
 									<strong>Result:&ensp;</strong>
-									<span class="onEditFields">
+									<span>
 										<%= candidate.result %>
 									</span>
-									<select class="form-select form-control onSaveFields custom-select"
+									<select class="form-select form-control hide custom-select"
 										id="result-<%= candidate.student._id %>-select" name="result" required>
 										<option selected value="<%= candidate.result %>">
 											<%= candidate.result %>

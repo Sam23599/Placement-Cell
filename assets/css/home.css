@@ -482,9 +482,6 @@
     background-color: #a5a5a5 !important;
 }
 
-.onSaveFields {
-    display: none;
-}
 
 .accordion-body .student-data p :is(input, select, span) {
     font-weight: 500;
@@ -520,6 +517,7 @@
         margin: auto;
     }
 }
+
 
 /* Hide the default arrow button on Select Fields */
 .custom-select {

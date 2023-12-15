@@ -17,20 +17,20 @@ module.exports.home = async function (req, res) {
     console.log("inside home controller");
 
     try {
-        const students = await Student.find({})
+        const allStudents = await Student.find({})
             .sort('-createdAt')
             .populate('interviews.company');
 
-        const interview = await Interview.find({})
+        const allInterviews = await Interview.find({})
             .populate('students.student');
 
-        // console.log('students: ', students)
+        // console.log('students: ', allStudents)
         // console.log('interviews', interview)
 
         return res.render('home', {
             title: 'Placement Cell',
-            students: students,
-            companies: interview
+            students: allStudents,
+            companies: allInterviews
         })
     } catch (error) {
         console.log('error on showing students/interview details');
@@ -38,6 +38,29 @@ module.exports.home = async function (req, res) {
     }
 }
 
+module.exports.updateStatus = async function (req, res) {
+    try {
+        const allStudents = await Student.find({})
+            .sort('-createdAt')
+            .populate('interviews.company');
+
+        const allInterviews = await Interview.find({})
+            .populate('students.student');
+
+        return res.json({
+            success: true,
+            message: 'Updated Students and Interviews data',
+            students: allStudents,
+            companies: allInterviews
+        });
+    } catch (error) {
+        console.error('Error on fetching data from DB:', error);
+        return res.status(500).json({
+            success: false,
+            error: 'Internal Server Error',
+        });
+    }
+}
 
 
 
@@ -107,7 +130,8 @@ module.exports.deleteStudent = async function (req, res) {
 
         return res.status(200).json({
             message: "Student deleted successfully",
-            companies: interviewsAll
+            companies: interviewsAll,
+            removedStudentId: studentIdToRemove
         })
 
     } catch (error) {
@@ -372,4 +396,17 @@ module.exports.createCompany = async function (req, res) {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 
+}
+
+
+
+
+// Download Report
+
+module.exports.downloadReport = async function (req, res) {
+    try {
+        
+    } catch (error) {
+        
+    }
 }
