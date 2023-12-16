@@ -4,11 +4,7 @@ const mongoose = require("mongoose");
 const atlasConnectionString = "mongodb+srv://satyamvirat:kWRtNsnmoB3YjxlP@cluster0.dz6c8l5.mongodb.net/?retryWrites=true&w=majority";
 
 
-mongoose.connect(atlasConnectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // useCreateIndex: true,
-});
+mongoose.connect(atlasConnectionString);
 
 const db = mongoose.connection;
 
