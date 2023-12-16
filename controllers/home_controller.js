@@ -406,8 +406,9 @@ module.exports.createCompany = async function (req, res) {
 // Download Report
 
 function convertToCSV(data, res) {
+    const currDir = process.cwd();
     const csvWriter = createCsvWriter({
-        path: 'students.csv',
+        path: `${currDir}/uploads/students.csv`,
         header: [
             { id: 'name', title: 'Name' },
             { id: 'age', title: 'Age' },
@@ -426,7 +427,7 @@ function convertToCSV(data, res) {
     csvWriter.writeRecords(data)
         .then(() => {
             console.log('CSV file written successfully');
-            res.download('students.csv');
+            res.download(`${currDir}/uploads/students.csv`);
         });
 }
 
@@ -440,7 +441,7 @@ module.exports.downloadReport = async (req, res, next) => {
                 })
 
             const studentsData = students.map(student => {
-                const interviewsString = student.interviews.map(interview => `${interview.company.companyName}: ${interview.result}`).join(', \n');
+                const interviewsString = student.interviews.map(interview => `${interview.company.companyName}: ${interview.result}`).join(', ');
 
                 return {
                     name: student.name,

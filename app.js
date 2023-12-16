@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const db = require('./config/mongoose');
 const app = express();
-const port = 5100;
+const port = process.env.PORT || 5100;
 
 // setup session middleware
 app.use(session({
