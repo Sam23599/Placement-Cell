@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path");
 
-// const AVATAR_PATH = path.join("/uploads/users/avatars");		// using when on local device
-const AVATAR_PATH = path.join(__dirname, '..', "/uploads/users/avatars")		// using when connect to atlas and hosted on render
+const AVATAR_PATH = path.join("/uploads/users/avatars");		
 
 //Create the DB Schema
 const userSchema = new mongoose.Schema(

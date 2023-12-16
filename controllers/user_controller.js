@@ -32,8 +32,6 @@ module.exports.profileUpdate = async function (req, res) {
 
             // bit confused how this actually works but it updates req.body after this with user details
             // Multer handles field: 'avatar' file upload, populates `req.file` with uploaded file details.
-            console.log(path.join(__dirname));
-
             await new Promise((resolve, reject) => {
                 User.uploadedFile(req, res, (err) => {
                     if (err) {
@@ -52,11 +50,9 @@ module.exports.profileUpdate = async function (req, res) {
 
             if (req.file) {
                 if (user.avatarPath == "/images/Empty-avatar.jpg") {
-                    console.log(user.avatarPath);
                     // if default avatar in /assets/images, then dont delete it, just update destination of new avatar
                 }
                 else if (user.avatarPath && fs.existsSync(path.join(__dirname, '..', user.avatarPath))) {
-                    console.log('file dest: ', user.avatarPath)
 
                     // if avatar is in /uploads/ then delete old avatar
                     await fs.promises.unlink(path.join(__dirname, '..', user.avatarPath));

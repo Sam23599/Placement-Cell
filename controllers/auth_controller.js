@@ -23,13 +23,11 @@ module.exports.signUp = async function (req, res) {
 
             // Set the default avatar path
             const defaultAvatarPath = '/images/Empty-avatar.jpg';
-            const actualAvatarPath = path.join(__dirname, '..', '/assets/images/Empty-avatar.jpg')
-            console.log(actualAvatarPath);
 
             // Create a new user with the default avatar path
             await User.create({
                 ...req.body,
-                avatarPath: actualAvatarPath,
+                avatarPath: defaultAvatarPath,
             });
         }
         else {
