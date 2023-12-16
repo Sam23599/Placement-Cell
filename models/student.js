@@ -47,7 +47,8 @@ const studentSchema = new mongoose.Schema({
                 trim: true,
                 required: true,
                 lowercase: true,
-                enum: ["pass", "fail", "didn't attempt", "on hold"],            },
+                enum: ["pass", "fail", "didn't attempt", "on hold"],
+            },
         },
     ],
     scores: {
@@ -73,24 +74,23 @@ const studentSchema = new mongoose.Schema({
     avatar: {
         type: String,
     },
-},
-    {
-        timestamps: true,
-    });
+}, {
+    timestamps: true,
+});
 
 
 //Setting up the Disk Storage Engine
 const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, path.join(__dirname, "..", AVATAR_PATH));
-	},
-	filename: function (req, file, cb) {
-		cb(null, file.fieldname + "-" + Date.now());
-	},
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, "..", AVATAR_PATH));
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + "-" + Date.now());
+    },
 });
 
 //Static Function :: Attaching the Disk Storage Engine to the Multer
-studentSchema.statics.uploadedFile = multer({storage: storage}).single("avatar");
+studentSchema.statics.uploadedFile = multer({ storage: storage }).single("avatar");
 studentSchema.statics.filePath = AVATAR_PATH;
 
 const Student = mongoose.model('Student', studentSchema);

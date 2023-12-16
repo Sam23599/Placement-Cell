@@ -575,9 +575,9 @@ function createInterview() {
                                 <p>
                                   <strong>Result:&ensp;</strong>
                                   <span >${data.result}</span>
-                                  <select class="form-select form-control custom-select" id="result-${data.student._id}-select" name="result" required>
+                                  <select class="form-select form-control custom-select hide" id="result-${data.student._id}-select" name="result" required>
                                     <option selected value="${data.result}">${data.result}</option>
-                                    <option value="pass">Pass</option>
+                                    <option value="pass">Pasas</option>
                                     <option value="fail">Fail</option>
                                     <option value="on hold">On Hold</option>
                                     <option value="didn't attempt">Didn't Attempt</option>

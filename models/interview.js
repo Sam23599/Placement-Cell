@@ -5,32 +5,34 @@ const mongoose = require('mongoose');
 const interviewSchema = new mongoose.Schema({
 
     companyName: {
-        type : String,
-        required : true
+        type: String,
+        required: true
     },
     date: {
-        type : Date,
-        required : true
+        type: Date,
+        required: true
     },
-    
+
     students: [
         {
             student: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Student",
                 required: true,
-            },  
+            },
             result: {
                 type: String,
-                enum: ["pass", "fail", "didn't attempt", "on hold"],                default: "On Hold",
+                enum: ["pass", "fail", "didn't attempt", "on hold"],
+                default: "On Hold",
                 trim: true,
                 required: true,
                 lowercase: true
             },
         },
     ],
-}
-,{timestamps: true});
+}, {
+    timestamps: true
+});
 
 
 const Interview = mongoose.model('Interview', interviewSchema);
